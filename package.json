@@ -10,8 +10,6 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@typescript-eslint/eslint-plugin": "^6.7.2",
-    "@typescript-eslint/parser": "^6.7.2",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.39",
     "@types/react": "^18.2.20",
@@ -30,7 +28,6 @@
     "redux-thunk": "^2.4.2",
     "reselect": "^4.1.8",
     "seedrandom": "^3.0.5",
-    "typescript": "^5.1.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
