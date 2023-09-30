@@ -6,8 +6,10 @@ import App from './App'
 
 import store from './store'
 import { fetchWorkitems } from './features/todos/workitemSlice'
+import { fetchPortfolios } from './features/todos/portfolioSlice'
 
 store.dispatch(fetchWorkitems())
+store.dispatch(fetchPortfolios())
 
 const container = document.getElementById('root');
 const root = createRoot(container!); // createRoot(container!) if you use TypeScript

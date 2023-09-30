@@ -5,7 +5,7 @@ export class PortfolioObj {
     text: string = '';
     columns: number = 0;
     videoItem: string = '';
-    imageArray: string[] = [];
+    imageArray: string = '';
     
     constructor(initializer?: any) {
       if (!initializer) return;

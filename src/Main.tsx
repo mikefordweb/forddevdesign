@@ -6,13 +6,12 @@ import WorkItemList from './WorkItemList';
 import ServicesItems from './ServicesItems';
 import Clients from './Clients';
 import WebForm from './WebForm';
+import Footer from './Footer';
 import { FDD_PROJECTS } from './WorkItemData';
 import { SERVICES_ITEMS } from './ServicesItemData';
 import { CLIENTS_ITEMS } from './ClientsData';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-
-import { selectWorkItems } from './features/todos/workitemSlice'
 
 const Main: React.FC = () => {
 
@@ -251,6 +250,7 @@ const Main: React.FC = () => {
       <section className="webform-section" id="contact">
         <WebForm />
       </section>
+      <Footer />
     </div>
     </div>
   );

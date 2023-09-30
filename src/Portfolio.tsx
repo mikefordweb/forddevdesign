@@ -4,6 +4,7 @@ import './App.css';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { PortfolioObj } from './PortfolioObj';
 import { PORTFOLIO_ITEMS } from './PortfolioData';
+import Footer from './Footer';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +17,8 @@ interface PorfolioProps {
 
 const Portfolio = ({ url, portfolioitems }: PorfolioProps) => {
   
+  console.log("portfolioitems: ", portfolioitems);
+
   useEffect(() => {
     //setSizeStyle();
     loadPortfolio();
@@ -24,10 +27,11 @@ const Portfolio = ({ url, portfolioitems }: PorfolioProps) => {
   const routeParams = useParams();
   let [portfolioItem1, setPortfolioItem1] = useState<PortfolioObj>(new PortfolioObj());
   let [allHtml, setAllHtml] = useState<any>([]);
+  //let [imageArray, setImageArray] = useState<any>([]);
 
   const loadPortfolio = () => {
 
-    let portfolioItem: PortfolioObj = new PortfolioObj();
+    let portfolioItem: any = {};
     let portfolioRows: number = 0;
     let htmlArr: Array<object> = [];
 
@@ -37,6 +41,8 @@ const Portfolio = ({ url, portfolioitems }: PorfolioProps) => {
         setPortfolioItem1(portfolioitems[i]);
       }
     }
+
+    portfolioItem.imageArray.toString().replace(/'/g,'').split(',')
 
     let portfolioColumns: Array<any> = [];
     
@@ -153,7 +159,7 @@ const Portfolio = ({ url, portfolioitems }: PorfolioProps) => {
       if (portfolioItem.columns === 1 && portfolioItem.videoItem.length > 0) {
         htmlRow.push(<div className="portfolio-item cols-0"><iframe width="560" height="315" src="https://www.youtube.com/embed/V9QLZ_7isHc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe></div>);
       } else {
-        portfolioItem.imageArray.forEach((portitem, j): any => {
+        portfolioItem.imageArray.forEach((portitem: any, j: number): any => {
           if (item2render.includes(j)) {
             let htmlItem: HTMLElement = document.createElement('div') as HTMLElement;
             let imgItem: HTMLElement = document.createElement('div') as HTMLElement;
@@ -196,7 +202,7 @@ const Portfolio = ({ url, portfolioitems }: PorfolioProps) => {
   return (<>
     <div className="portfolio-content">
       <header className="portfolio-header">
-        <img src="/img/Ford-Dev-Design-logo-dark.png" className="fdd-logo-white" alt="logo" />
+        <a href="/"><img src="/img/Ford-Dev-Design-logo-dark.png" className="fdd-logo-white" alt="logo" /></a>
 
         <ul className="header-nav portfolio-nav">
           <li>
@@ -238,7 +244,7 @@ const Portfolio = ({ url, portfolioitems }: PorfolioProps) => {
           {allHtml}
         </div>
       </div>
-      
+      <Footer />
     </div>
     </>
   );
