@@ -1,6 +1,4 @@
-import React, { useState, useEffect, MouseEvent } from 'react';
-import { ClientsObj } from './ClientsObj';
-import { useParams, useLocation, useNavigate, redirect } from 'react-router-dom';
+import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 

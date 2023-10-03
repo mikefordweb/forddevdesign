@@ -1,9 +1,10 @@
-import React, { MouseEvent, ReactElement, ReactNode, useEffect, useState } from 'react';
-import logo from './logo.svg';
+import React, { MouseEvent, ReactElement, useEffect, useState } from 'react';
 import './App.css';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { PortfolioObj } from './PortfolioObj';
-import { PORTFOLIO_ITEMS } from './PortfolioData';
+import { selectPortfolio } from './features/todos/portfolioSlice'
+import { useAppSelector } from './app/hooks'
+import Header from './Header';
 import Footer from './Footer';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,11 +12,15 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 interface PorfolioProps {
-  url?: string;
   portfolioitems: PortfolioObj[];
 }
 
-const Portfolio = ({ url, portfolioitems }: PorfolioProps) => {
+const Portfolio = ({ portfolioitems }: PorfolioProps) => {
+
+  const portfolioSel = useAppSelector(selectPortfolio)
+    console.log("portfolioSel: ", portfolioSel)
+    let portfolioItems = portfolioSel[0];
+    console.log("portfolioItems: ", portfolioItems)
   
   console.log("portfolioitems: ", portfolioitems);
 
@@ -201,24 +206,7 @@ const Portfolio = ({ url, portfolioitems }: PorfolioProps) => {
 
   return (<>
     <div className="portfolio-content">
-      <header className="portfolio-header">
-        <a href="/"><img src="/img/Ford-Dev-Design-logo-dark.png" className="fdd-logo-white" alt="logo" /></a>
-
-        <ul className="header-nav portfolio-nav">
-          <li>
-            <span className="header-nav-span">Our Work</span>
-          </li>
-          <li>
-            <span className="header-nav-span">Services</span>
-          </li>
-          <li>
-            <span className="header-nav-span">Clients</span>
-          </li>
-          <li>
-            <span className="header-nav-span">Contact</span>
-          </li>
-        </ul>
-      </header>
+      <Header headerType={"portfolio"} />
 
       <div className="portfolio-section">
         <div className="left-nav-wrapper">

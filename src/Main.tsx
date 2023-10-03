@@ -1,17 +1,13 @@
 import React, { MouseEvent, useEffect, useState } from 'react';
 import './App.css';
-import { useAppSelector } from './app/hooks'
-import { RootState } from "./store";
 import WorkItemList from './WorkItemList';
 import ServicesItems from './ServicesItems';
 import Clients from './Clients';
 import WebForm from './WebForm';
 import Footer from './Footer';
-import { FDD_PROJECTS } from './WorkItemData';
+import Header from './Header';
 import { SERVICES_ITEMS } from './ServicesItemData';
 import { CLIENTS_ITEMS } from './ClientsData';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const Main: React.FC = () => {
 
@@ -149,48 +145,7 @@ const Main: React.FC = () => {
       </div>
       
       <div className="bg"></div>
-      <header>
-        <img src="/img/Ford-Dev-Design-logo-light.png" className="fdd-logo" alt="logo" />
-
-        <ul className={`header-nav ${showHideMainMenu}`}>
-          <li>
-            <a href="#ourwork" className="header-nav-span">Our Work</a>
-            <div className="header-nav-bottom-left"></div>
-            <div className="header-nav-bottom-right"></div>
-          </li>
-          <li>
-            <a href="#services" className="header-nav-span">Services</a>
-            <div className="header-nav-bottom-left"></div>
-            <div className="header-nav-bottom-right"></div>
-          </li>
-          <li>
-            <a href="#clients" className="header-nav-span">Clients</a>
-            <div className="header-nav-bottom-left"></div>
-            <div className="header-nav-bottom-right"></div>
-          </li>
-          <li>
-            <a href="#contact" className="header-nav-span">Contact</a>
-            <div className="header-nav-bottom-left"></div>
-            <div className="header-nav-bottom-right"></div>
-          </li>
-        </ul>
-
-        <FontAwesomeIcon icon={faBars} className={`fa-bars ${showHideMobileIcon}`} onClick={clickMenu} />
-        <div className={`mobile-menu ${showHideMobileMenu}`}>
-          <div className="mobile-menu-item">
-            <a href="#" className="mobile-menu-link">Our Work</a>
-          </div>
-          <div className="mobile-menu-item">
-            <a href="#" className="mobile-menu-link">Services</a>
-          </div>
-          <div className="mobile-menu-item">
-            <a href="#" className="mobile-menu-link">Clients</a>
-          </div>
-          <div className="mobile-menu-item">
-            <a href="#" className="mobile-menu-link">Contact</a>
-          </div>
-        </div>
-      </header>
+      <Header headerType={"main"} />
 
       <div className="fdd-main-text">
         <p>Applied science meets aesthetics at Ford Dev & Design. We create. We code. And our web development and design expertise builds brands across multiple platforms through relentless idea generation.</p>
