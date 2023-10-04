@@ -15,64 +15,77 @@ interface PorfolioProps {
   portfolioitems: PortfolioObj[];
 }
 
-const Portfolio = ({ portfolioitems }: PorfolioProps) => {
+const Portfolio = () => {
 
   const portfolioSel = useAppSelector(selectPortfolio)
-    console.log("portfolioSel: ", portfolioSel)
-    let portfolioItems = portfolioSel[0];
-    console.log("portfolioItems: ", portfolioItems)
-  
+  console.log("portfolioSel: ", portfolioSel)
+  let portfolioitems = portfolioSel[0];
+  let imgArr: any = {};
+
   console.log("portfolioitems: ", portfolioitems);
 
   useEffect(() => {
     //setSizeStyle();
-    loadPortfolio();
+    //loadPortfolio();
   }, []);
 
   const routeParams = useParams();
-  let [portfolioItem1, setPortfolioItem1] = useState<PortfolioObj>(new PortfolioObj());
-  let [allHtml, setAllHtml] = useState<any>([]);
+  //let [portfolioItem1, setPortfolioItem1] = useState<PortfolioObj>(new PortfolioObj());
+  //let [allHtml, setAllHtml] = useState<any>([]);
+  let allHtml: any[] = [];
+  let portfolioItem: any = {};
   //let [imageArray, setImageArray] = useState<any>([]);
 
-  const loadPortfolio = () => {
+  if (portfolioitems !== undefined) {
+  //const loadPortfolio = () => {
 
-    let portfolioItem: any = {};
     let portfolioRows: number = 0;
     let htmlArr: Array<object> = [];
 
     for (let i = 0; i<portfolioitems.length; i++) {
       if (portfolioitems[i].url === routeParams.pagepath) {
-        portfolioItem = portfolioitems[i];
-        setPortfolioItem1(portfolioitems[i]);
+        portfolioItem = JSON.parse(JSON.stringify(portfolioitems[i]));
+        imgArr = JSON.parse(JSON.stringify(portfolioItem.imageArray.replace(/'/g,'').split(',')));
+        //setPortfolioItem1(portfolioitems[i]);
       }
     }
 
-    portfolioItem.imageArray.toString().replace(/'/g,'').split(',')
+    console.log("imgArr: ", imgArr)
+
+    //portfolioItem.imageArray.toString().replace(/'/g,'').split(',')
+    //console.log("1:portfolioItem.imageArray: ", portfolioItem.imageArray);
+    //portfolioItem.imgArr = portfolioItem.imageArray.replace(/'/g,'').split(',');
 
     let portfolioColumns: Array<any> = [];
     
-    if (portfolioItem.columns === 4) {
+    console.log("typeof portfolioItem.columns: ", typeof portfolioItem.columns)
+    if (portfolioItem.columns === '4') {
+      console.log("portfolioItem.columns === 4")
       portfolioColumns = [1,2,3,4];
-    } else if (portfolioItem.columns === 2) {
+    } else if (portfolioItem.columns === '2') {
       portfolioColumns = [1,2];
-    } else if (portfolioItem.columns === 3) {
+    } else if (portfolioItem.columns === '3') {
       portfolioColumns = [1,2,3];
-    } else if (portfolioItem.columns === 1) {
+    } else if (portfolioItem.columns === '1') {
       portfolioColumns = [1];
     }
+    console.log("portfolioColumns: ", portfolioColumns);
 
     let imgArrLength: number = 0;
     if (portfolioItem.imageArray.length === 0) {
       imgArrLength = 1;
     } else {
-      imgArrLength = portfolioItem.imageArray.length
+      imgArrLength = imgArr.length
     }
-    
-    portfolioRows = Math.ceil(imgArrLength / portfolioItem.columns);
+
+    console.log("imgArrLength: ", imgArrLength);
+
+    portfolioRows = Math.ceil(imgArrLength / parseInt(portfolioItem.columns));
+    console.log("portfolioRows: ", portfolioRows);
     
     for (let i = 0; i<portfolioRows; i++) {
       let item2render: Array<any> = [];
-      if (portfolioItem.columns === 4) {
+      if (portfolioItem.columns === '4') {
         if (portfolioColumns[i] === 1) {
           item2render = [1,2,3,4];
         }
@@ -86,10 +99,10 @@ const Portfolio = ({ portfolioitems }: PorfolioProps) => {
           item2render = [13,14,15,16];
         }
       }
-      if (portfolioItem.columns === 2) {
+      if (portfolioItem.columns === '2') {
         switch(i) {
           case 0:
-            item2render = [0,1,];
+            item2render = [0,1];
             break;
           case 1:
             item2render = [2,3];
@@ -104,7 +117,7 @@ const Portfolio = ({ portfolioitems }: PorfolioProps) => {
             break;
         }
       }
-      if (portfolioItem.columns === 1) {
+      if (portfolioItem.columns === '1') {
         switch(i) {
           case 0:
             item2render = [0,1,2];
@@ -119,7 +132,7 @@ const Portfolio = ({ portfolioitems }: PorfolioProps) => {
             break;
         }
       }
-      if (portfolioItem.columns === 3) {
+      if (portfolioItem.columns === '3') {
         
         switch(i) {
           case 0:
@@ -160,33 +173,37 @@ const Portfolio = ({ portfolioitems }: PorfolioProps) => {
         }
       }
       let htmlRow: Array<ReactElement> = [];
+      console.log("item2render: ", item2render);
 
-      if (portfolioItem.columns === 1 && portfolioItem.videoItem.length > 0) {
+      if (portfolioItem.columns === '1' && portfolioItem.videoItem.length > 0) {
         htmlRow.push(<div className="portfolio-item cols-0"><iframe width="560" height="315" src="https://www.youtube.com/embed/V9QLZ_7isHc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe></div>);
       } else {
-        portfolioItem.imageArray.forEach((portitem: any, j: number): any => {
+        imgArr.forEach((portitem: any, j: number): any => {
           if (item2render.includes(j)) {
             let htmlItem: HTMLElement = document.createElement('div') as HTMLElement;
             let imgItem: HTMLElement = document.createElement('div') as HTMLElement;
             htmlItem.classList.add("portfolio-item");
       
-            if (portfolioItem.columns === 2) {
+            if (portfolioItem.columns === '2') {
               htmlRow.push(<div className="portfolio-item cols-2" key={j}><img src={`/img/${portitem}`} className="portfolio-item-img"></img></div>);
-            } else if (portfolioItem.columns === 3) {
+            } else if (portfolioItem.columns === '3') {
               htmlRow.push(<div className="portfolio-item cols-3" key={j}><img src={`/img/${portitem}`} className="portfolio-item-img"></img></div>);
-            } else if (portfolioItem.columns === 4) {
+            } else if (portfolioItem.columns === '4') {
               htmlRow.push(<div className="portfolio-item cols-4" key={j}><img src={`/img/${portitem}`} className="portfolio-item-img"></img></div>);
-            } else if (portfolioItem.columns === 1) {
+            } else if (portfolioItem.columns === '1') {
               htmlRow.push(<div className="portfolio-item cols-1" key={j}><img src={`/img/${portitem}`} className="portfolio-item-img"></img></div>);
             }
 
           }
           
         })
+        //console.log("1:htmlRow: ", htmlRow);
       }
+      //console.log("2:htmlRow: ", htmlRow);
       htmlArr.push(htmlRow);
     }
-    setAllHtml(htmlArr);
+    console.log("htmlArr: ", htmlArr)
+    allHtml = htmlArr;
   }
 
   const clickNav = (ev: MouseEvent) => {
@@ -217,9 +234,9 @@ const Portfolio = ({ portfolioitems }: PorfolioProps) => {
         
         <div className="section-text-content">
           <div className="section-header">
-            <div className="section-header-text">{portfolioItem1.title}</div>
+            <div className="section-header-text">{portfolioItem.title}</div>
           </div>
-          <div className="section-text">{portfolioItem1.text}</div>
+          <div className="section-text">{portfolioItem.text}</div>
           </div>
         <div className="right-nav-wrapper">
           <div className="right-nav"  onClick={clickNav}>

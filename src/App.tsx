@@ -14,7 +14,7 @@ const App = () => {
        
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/:pagepath" element={<Portfolio portfolioitems={PORTFOLIO_ITEMS} />} />
+          <Route path="/:pagepath" element={<Portfolio />} />
         </Routes>
 
     </Router>

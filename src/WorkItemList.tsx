@@ -6,9 +6,9 @@ import { useAppSelector } from './app/hooks'
 function WorkItemList() {
     
     const workitemsSel = useAppSelector(selectWorkItems)
-    //console.log("workitemsSel: ", workitemsSel)
+    console.log("workitemsSel: ", workitemsSel)
     let workitems = workitemsSel[0];
-    //console.log("workitems: ", workitems)
+    console.log("workitems: ", workitems)
 
     let [is2cols, setIs2cols] = useState<string>("");
     

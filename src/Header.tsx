@@ -6,7 +6,7 @@ interface FooterProps {
     headerType: string;
 }
 
-const Footer = ({ headerType }: FooterProps) => {
+const Header = ({ headerType }: FooterProps) => {
 
     let [showHideMainMenu, setShowHideMainMenu] = useState<string>('show');
     let [showHideMobileIcon, setShowHideMobileIcon] = useState<string>('hide');
@@ -100,4 +100,4 @@ const Footer = ({ headerType }: FooterProps) => {
 
 }
  
-export default Footer;
+export default Header;
